@@ -444,13 +444,14 @@ h4 {
   border-radius: 10rem;
   margin-right: 1rem;
   color: inherit;
-  border: 1px solid rgb(10, 10, 10);
+  border: 1px solid rgb(0, 0, 0);
   transition: all 0.3s;
 }
 
 .login__input:focus {
   outline: none;
-  border: 1px solid rgb(3, 3, 3);
+  border: 1px solid rgb(0, 0, 0);
+  color: rgb(0, 0, 0);
 }
 
 .login__input::placeholder {
@@ -462,18 +463,18 @@ h4 {
 .btn--sort:hover,
 .btn--sort:focus {
   outline: none;
-  color: rgb(15, 15, 15);
+  color: rgb(0, 0, 0);
 } /* SIGNUP */
 .section--sign-up {
   background-color: #37383d;
   border-top: none;
-  border-bottom: 1px solid #444;
+  border-bottom: 1px solid rgb(0, 0, 0);
   text-align: center;
   padding: 10rem 3rem;
 }
 
 .section--sign-up .section__header {
-  color: rgb(14, 14, 14);
+  color: rgb(0, 0, 0);
   text-align: center;
 }
 
@@ -554,4 +555,49 @@ h4 {
   cursor: pointer;
   border: none;
   background: none;
+}
+
+.tg {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.tg td {
+  border-style: solid;
+  border-width: 0px;
+  overflow: hidden;
+  padding: 10px 5px;
+  word-break: normal;
+  color: #ff8400;
+}
+
+.tg td img {
+  width: 200px;
+}
+
+.tg td p {
+  color: #ffffff;
+  text-align: center;
+}
+
+.tg th {
+  border-style: solid;
+  border-width: 0px;
+  overflow: hidden;
+  padding: 10px 5px;
+  word-break: normal;
+  color: #ff8400;
+}
+
+@media screen and (max-width: 1000px) {
+  .tg {
+    width: auto !important;
+  }
+  .tg col {
+    width: auto !important;
+  }
+  .tg-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 }

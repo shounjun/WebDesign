@@ -1,15 +1,24 @@
 'use strict';
+
 ///////////////////
 //Acount
 // Data
-const account1 = {
+const account1: {
+  owner: string;
+  pin: number;
+} = {
   owner: 'Jonas Schmedtmann',
   pin: 1111,
 };
-const account2 = {
+
+const account2: {
+  owner: string;
+  pin: number;
+} = {
   owner: 'Jessica Davis',
   pin: 2222,
 };
+
 let plates = [
   {
     Name: 'Salmon',
@@ -82,15 +91,18 @@ let plates = [
     img: 'https://cdn.pixabay.com/photo/2018/01/01/17/57/fish-soup-3054627_960_720.jpg',
   },
 ];
+
 plates.forEach(plate => {
   const td = document.getElementById(plate.Day + '-' + plate.Type);
   const div = document.createElement('div');
   const name = document.createElement('p');
   const image = document.createElement('img');
   const price = document.createElement('p');
+
   name.innerText = plate.Name;
   image.src = plate.img;
-  price.innerText = `Price: ${plate.Price} €`;
+  price.innerText = plate.Price + '€';
+
   div.append(name);
   div.append(price);
   div.append(image);
@@ -98,12 +110,41 @@ plates.forEach(plate => {
     td.append(div);
   }
 });
+
 ///////////////////////////////////////
 //variables
+
 const inputLoginUsername = document.querySelector('.login__input--user');
 const inputLoginPin = document.querySelector('.login__input--pin');
 const btnLogin = document.querySelector('.login__btn');
 //////////////////////////////////
+
 ////////////////////////////////
 // Event handlers
 let currentAccount;
+
+/*
+btnLogin.addEventListener('click', function (e) {
+  // Prevent form from submitting
+  e.preventDefault();
+
+  currentAccount = accounts.find(
+    acc => acc.username === inputLoginUsername.value
+  );
+  console.log(currentAccount);
+
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    // Display UI and message
+    labelWelcome.textContent = `Welcome back, ${
+      currentAccount.owner.split(' ')[0]
+    }`;
+    containerApp.style.opacity = 100;
+
+    // Clear input fields
+    inputLoginUsername.value = inputLoginPin.value = '';
+    inputLoginPin.blur();
+
+    // Update UI
+    updateUI(currentAccount);
+  }
+});*/
