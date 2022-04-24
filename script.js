@@ -10,6 +10,7 @@ const account2 = {
   owner: 'Jessica Davis',
   pin: 2222,
 };
+let order = [];
 let plates = [
   {
     Name: 'Salmon',
@@ -82,22 +83,39 @@ let plates = [
     img: 'https://cdn.pixabay.com/photo/2018/01/01/17/57/fish-soup-3054627_960_720.jpg',
   },
 ];
-plates.forEach(plate => {
-  const td = document.getElementById(plate.Day + '-' + plate.Type);
-  const div = document.createElement('div');
-  const name = document.createElement('p');
-  const image = document.createElement('img');
-  const price = document.createElement('p');
-  name.innerText = plate.Name;
-  image.src = plate.img;
-  price.innerText = `Price: ${plate.Price} €`;
-  div.append(name);
-  div.append(price);
-  div.append(image);
-  if (td !== null) {
-    td.append(div);
-  }
-});
+const buildMenu = function (tableID, addBuyButton) {
+  plates.forEach(plate => {
+    const table = document.getElementById(tableID);
+    const td =
+      table === null || table === void 0
+        ? void 0
+        : table.querySelector('#' + plate.Day + '-' + plate.Type);
+    const div = document.createElement('div');
+    const name = document.createElement('p');
+    const image = document.createElement('img');
+    const price = document.createElement('p');
+    const btn = document.createElement('button');
+    name.innerText = plate.Name;
+    image.src = plate.img;
+    price.innerText = `Price: ${plate.Price}€`;
+    btn.innerHTML = 'Buy';
+    btn.addEventListener('click', function (e) {
+      console.log('Added ' + plate.Name);
+      let currentOrder = { name: plate.Name, price: plate.Price };
+      order.push(currentOrder);
+      window.localStorage.setItem('order', JSON.stringify(currentOrder));
+    });
+    div.append(name);
+    div.append(price);
+    div.append(image);
+    if (addBuyButton) div.append(btn);
+    if (td !== null) {
+      td === null || td === void 0 ? void 0 : td.append(div);
+    }
+  });
+};
+buildMenu('section--2', false);
+buildMenu('section--4', true);
 ///////////////////////////////////////
 //variables
 const inputLoginUsername = document.querySelector('.login__input--user');

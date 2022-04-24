@@ -91,19 +91,6 @@ p {
   color: rgb(255, 255, 255);
 }
 
-/* This is BAD for accessibility! Don't do in the real world! */
-button:focus {
-  outline: none;
-}
-
-img {
-  transition: filter 0.5s;
-}
-
-.lazy-img {
-  filter: blur(20px);
-}
-
 /* NAVIGATION */
 .nav {
   display: flex;
@@ -575,6 +562,12 @@ h4 {
   width: 200px;
 }
 
+.tg td button {
+  display: block;
+  text-align: center;
+  width: 75%;
+}
+
 .tg td p {
   color: #ffffff;
   text-align: center;
@@ -587,6 +580,14 @@ h4 {
   padding: 10px 5px;
   word-break: normal;
   color: #ff8400;
+}
+
+button {
+  background-color: #ffffff;
+  border: 0.5px solid black;
+  border-radius: 10px;
+  color: black;
+  padding: 8px;
 }
 
 @media screen and (max-width: 1000px) {

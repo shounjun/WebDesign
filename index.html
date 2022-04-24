@@ -61,71 +61,6 @@
           Every day there is a fish🐟 and meat🍖 dish of your choice. 
           <br />
             <div class="tg-wrap"><table class="tg">
-            <!--<thead>
-              <tr>
-                <th class="tg-p0kf"></th>
-                <th class="tg-p0kf" colspan="2">Meat</th>
-                <th class="tg-p0kf" colspan="2">Fish</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td class="tg-p0kf" rowspan="2">Monday</td>
-                <td class="tg-p0kf" colspan="2"><img src="https://cdn.pixabay.com/photo/2016/12/11/22/41/lasagna-1900529_960_720.jpg" alt="Image" width="100" height="56"></td>
-                <td class="tg-p0kf" colspan="2"><img src="https://cdn.pixabay.com/photo/2014/11/05/15/57/salmon-518032_960_720.jpg" alt="Image" width="100" height="75"></td>
-              </tr>
-              <tr>
-                <td class="tg-p0kf">Lasagna</td>
-                <td class="tg-p0kf">7</td>
-                <td class="tg-p0kf">Salmon</td>
-                <td class="tg-p0kf">8</td>
-              </tr>
-              <tr>
-                <td class="tg-p0kf" rowspan="2">Tuesday</td>
-                <td class="tg-p0kf" colspan="2"><img src="https://cdn.pixabay.com/photo/2016/11/18/17/42/barbecue-1836053_960_720.jpg" alt="Image" width="100" height="66"></td>
-                <td class="tg-p0kf" colspan="2"><img src="https://cdn.pixabay.com/photo/2016/06/30/18/49/sardines-1489626_960_720.jpg" alt="Image" width="100" height="66"></td>
-              </tr>
-              <tr>
-                <td class="tg-p0kf">Chicken</td>
-                <td class="tg-p0kf">5</td>
-                <td class="tg-p0kf">Sardines</td>
-                <td class="tg-p0kf">6</td>
-              </tr>
-              <tr>
-                <td class="tg-p0kf" rowspan="2">Wednesday</td>
-                <td class="tg-p0kf" colspan="2"><img src="https://cdn.pixabay.com/photo/2016/03/05/19/37/appetite-1238459_960_720.jpg" alt="Image" width="100" height="82"></td>
-                <td class="tg-p0kf" colspan="2"><img src="https://cdn.pixabay.com/photo/2019/11/05/00/07/fish-and-chips-4602434_960_720.jpg" alt="Image" width="100" height="66"></td>
-              </tr>
-              <tr>
-                <td class="tg-mk6l">Hamburguer</td>
-                <td class="tg-mk6l">4</td>
-                <td class="tg-mk6l">Fish And Chips</td>
-                <td class="tg-mk6l">5</td>
-              </tr>
-              <tr>
-                <td class="tg-p0kf" rowspan="2">Thursday</td>
-                <td class="tg-p0kf" colspan="2"><img src="https://image.freepik.com/free-photo/plate-basil-cherry-gourmet-menu_1220-1184.jpg" alt="Image" width="100" height="55"></td>
-                <td class="tg-p0kf" colspan="2"><img src="https://cdn.pixabay.com/photo/2016/11/25/16/08/sushi-1858696_960_720.jpg" alt="Image" width="100" height="55"></td>
-              </tr>
-              <tr>
-                <td class="tg-mk6l">Spaghetti bolognese</td>
-                <td class="tg-mk6l">7</td>
-                <td class="tg-mk6l">Sushi</td>
-                <td class="tg-mk6l">10</td>
-              </tr>
-              <tr>
-                <td class="tg-p0kf" rowspan="2">Friday</td>
-                <td class="tg-p0kf" colspan="2"><img src="https://cdn.pixabay.com/photo/2016/11/18/17/42/barbecue-1836053_960_720.jpg" alt="Image" width="100" height="56"></td>
-                <td class="tg-p0kf" colspan="2"><img src="https://cdn.pixabay.com/photo/2018/01/01/17/57/fish-soup-3054627_960_720.jpg" alt="Image" width="100" height="66"></td>
-              </tr>
-              <tr>
-                <td class="tg-p0kf">Chicken</td>
-                <td class="tg-p0kf">6</td>
-                <td class="tg-p0kf">Fish Soup</td>
-                <td class="tg-p0kf">7</td>
-              </tr>
-            </tbody>
-            </table>-->
             <thead>
               <tr id="PlateType">
                 <th></th>
@@ -185,9 +120,54 @@
             maxlength="4"
             class="login__input login__input--pin"
           />
+          <button id="btnSubmit">OK</button>
          </form>
+         
       </div>   
     </section>
+
+    <section class="section" id="section--4" style="visibility: hidden;">
+      <div class="section__title">
+        <h2 class="section__description">Reserve the menus</h2>
+        <h3 class="section__header">
+        Make your choices:
+          <br />
+            <div class="tg-wrap"><table class="tg">
+            <thead>
+              <tr id="PlateType">
+                <th></th>
+                <th id="Meat">Meat</th>
+                <th id="Fish">Fish</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr id="Monday">
+                <td>Monday</td>
+                <td id="Monday-Meat"></td>
+                <td id="Monday-Fish"></td>
+              </tr>
+              <tr id="Tuesday">
+                <td>Tuesday</td>
+                <td id="Tuesday-Meat"></td>
+                <td id="Tuesday-Fish"></td>
+              </tr>
+              <tr id="Wednesday">
+                <td>Wednesday</td>
+                <td id="Wednesday-Meat"></td>
+                <td id="Wednesday-Fish"></td>
+              </tr>
+              <tr id="Thursday">
+                <td>Thursday</td>
+                <td id="Thursday-Meat"></td>
+                <td id="Thursday-Fish"></td>
+              </tr>
+              <tr id="Friday">
+                <td>Friday</td>
+                <td id="Friday-Meat"></td>
+                <td id="Friday-Fish"></td>
+              </tr>
+            </tbody>
+            </table>
    <script src="script.js"></script>
   </body>
 </html>
