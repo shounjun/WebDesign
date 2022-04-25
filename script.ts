@@ -11,16 +11,10 @@ const account1: {
   pin: 1111,
 };
 
-const account2: {
-  owner: string;
-  pin: number;
-} = {
-  owner: 'Jessica Davis',
-  pin: 2222,
-};
-const accounts = [account1, account2];
+const accounts = [account1];
 
-let order = [];
+let orders = [];
+let totalPrice = 0;
 
 let plates = [
   {
@@ -94,6 +88,49 @@ let plates = [
     img: 'https://cdn.pixabay.com/photo/2018/01/01/17/57/fish-soup-3054627_960_720.jpg',
   },
 ];
+
+let user = {};
+
+const initFromLocalStorage = function () {
+  const userString = localStorage.getItem('user');
+  if (userString != null) {
+    user = JSON.parse(localStorage.getItem('user'));
+    document?.getElementById('section--4').style.visibility = 'visible';
+  }
+
+  const ordersString = localStorage.getItem('orders');
+  if (ordersString != null) {
+    orders = JSON.parse(localStorage.getItem('orders'));
+    orders.forEach(order => {
+      addOrder(order, false);
+    });
+  }
+};
+
+const addOrder = function (plate: object, saveInLocalStorage: boolean) {
+  const orderTableBody = document.getElementById('orderBody');
+  const row = document.createElement('tr');
+  const plateTD = document.createElement('td');
+  const priceTD = document.createElement('td');
+
+  plateTD.innerHTML = plate.Name;
+  priceTD.innerHTML = plate.Price + '€';
+
+  row.appendChild(plateTD);
+  row.appendChild(priceTD);
+
+  orderTableBody?.appendChild(row);
+  console.log('Added ' + plate.Name);
+  let currentOrder = { Name: plate.Name, Price: plate.Price };
+  if (saveInLocalStorage) {
+    orders.push(currentOrder);
+    window.localStorage.setItem('orders', JSON.stringify(orders));
+  }
+  const totalPriceText = document.getElementById('totalPrice');
+  totalPrice += plate.Price;
+  totalPriceText?.innerHTML = totalPrice.toString() + '€';
+};
+
 const buildMenu = function (tableID: string, addBuyButton: boolean) {
   plates.forEach(plate => {
     const table = document.getElementById(tableID);
@@ -109,10 +146,8 @@ const buildMenu = function (tableID: string, addBuyButton: boolean) {
     price.innerText = `Price: ${plate.Price}€`;
     btn.innerHTML = 'Buy';
     btn.addEventListener('click', function (e) {
-      console.log('Added ' + plate.Name);
-      let currentOrder = { name: plate.Name, price: plate.Price };
-      order.push(currentOrder);
-      window.localStorage.setItem('order', JSON.stringify(currentOrder));
+      addOrder(plate, true);
+      btn.style.visibility = 'hidden';
     });
 
     div.append(name);
@@ -125,20 +160,55 @@ const buildMenu = function (tableID: string, addBuyButton: boolean) {
     }
   });
 };
+
 buildMenu('section--2', false);
 buildMenu('section--4', true);
+initFromLocalStorage();
+//////////////////////////
 
-let currentAccount;
+//Login
+const inputLoginUsername = document.querySelector('.login__input--user');
+const inputLoginPin = document.querySelector('.login__input--pin');
+const btnSubmit = document.querySelector('.btnSubmit');
+const btnLogout = document.querySelector('.btnLogout');
 
-btnSubmit.addEventListener('click', function (e) {
+//////////////////////////////////
+const createUsernames = function (accs: object[]) {
+  accs.forEach(function (acc: object) {
+    acc.username = acc.owner
+      .toLowerCase()
+      .split(' ')
+      .map(name => name[0])
+      .join('');
+  });
+};
+createUsernames(accounts);
+let currentUser;
+
+btnSubmit?.addEventListener('click', function (e) {
   e.preventDefault();
-
-  currentAccount = accounts.find(
-    acc => acc.username === inputLoginUsername.value
-  );
-  console.log(currentAccount);
-
-  if (currentAccount?.pin === Number(inputLoginPin.value)) {
-    document.getElementById('section--4').style.visibility = 'visible';
+  currentUser = accounts.find(acc => acc.username === inputLoginUsername.value);
+  console.log(currentUser);
+  if (
+    (currentUser === null || currentUser === void 0
+      ? void 0
+      : currentUser.pin) === Number(inputLoginPin?.value)
+  ) {
+    document?.getElementById('section--4').style.visibility = 'visible';
+    window.localStorage.setItem('user', JSON.stringify(currentUser));
+  } else {
+    const newUser = {
+      username: inputLoginUsername.value,
+      pin: Number(inputLoginPin?.value),
+    };
+    window.localStorage.setItem('user', JSON.stringify(newUser));
+    location.reload();
   }
+});
+
+btnLogout?.addEventListener('click', function (e) {
+  e.preventDefault();
+  window.localStorage.removeItem('user');
+  window.localStorage.removeItem('orders');
+  location.reload();
 });

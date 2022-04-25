@@ -121,12 +121,13 @@
             class="login__input login__input--pin"
           />
           <button  class="btnSubmit">OK</button>
+          <button  class="btnLogout">Logout</button>
          </form>
          
       </div>   
     </section>
 
-    <section class="section" id="section--4" style="visibility: collapse;">
+    <section class="section" id="section--4" style="visibility: collapse">
       <div class="section__title">
         <h2 class="section__description">Reserve the menus</h2>
         <h3 class="section__header">
@@ -168,6 +169,24 @@
               </tr>
             </tbody>
             </table>
+<br>
+            <h3 class="section__header"> Your order:</h3>
+            <div class="order-wrap">
+              <table class="order">
+                <thead>
+                  <tr>
+                    <th>Plate</th>
+                    <th>Price</th>
+                  </tr>
+                </thead>              
+                <tbody id="orderBody">
+                </tbody>
+              </table>
+              <div>
+                <p>Total Price is:</p>
+                <p id="totalPrice"></p>
+              </div>
+            </div>
    <script src="script.js"></script>
   </body>
 </html>
