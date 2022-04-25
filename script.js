@@ -10,6 +10,9 @@ const account2 = {
   owner: 'Jessica Davis',
   pin: 2222,
 };
+const accounts = [account1, account2];
+
+////////////////////////
 let order = [];
 let plates = [
   {
@@ -116,12 +119,38 @@ const buildMenu = function (tableID, addBuyButton) {
 };
 buildMenu('section--2', false);
 buildMenu('section--4', true);
+
 ///////////////////////////////////////
-//variables
+
+//Login
 const inputLoginUsername = document.querySelector('.login__input--user');
 const inputLoginPin = document.querySelector('.login__input--pin');
-const btnLogin = document.querySelector('.login__btn');
+const btnSubmit = document.querySelector('.btnSubmit');
+
 //////////////////////////////////
-////////////////////////////////
-// Event handlers
+const createUsernames = function (accs) {
+  accs.forEach(function (acc) {
+    acc.username = acc.owner
+      .toLowerCase()
+      .split(' ')
+      .map(name => name[0])
+      .join('');
+  });
+};
+
+createUsernames();
+
 let currentAccount;
+
+btnSubmit.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  currentAccount = accounts.find(
+    acc => acc.username === inputLoginUsername.value
+  );
+  console.log(currentAccount);
+
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    document.getElementById('section--4').style.visibility = 'visible';
+  }
+});

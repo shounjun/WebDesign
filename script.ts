@@ -18,6 +18,7 @@ const account2: {
   owner: 'Jessica Davis',
   pin: 2222,
 };
+const accounts = [account1, account2];
 
 let order = [];
 
@@ -127,21 +128,9 @@ const buildMenu = function (tableID: string, addBuyButton: boolean) {
 buildMenu('section--2', false);
 buildMenu('section--4', true);
 
-///////////////////////////////////////
-//variables
-
-const inputLoginUsername = document.querySelector('.login__input--user');
-const inputLoginPin = document.querySelector('.login__input--pin');
-const btnLogin = document.querySelector('.login__btn');
-//////////////////////////////////
-
-////////////////////////////////
-// Event handlers
 let currentAccount;
 
-/*
-btnLogin.addEventListener('click', function (e) {
-  // Prevent form from submitting
+btnSubmit.addEventListener('click', function (e) {
   e.preventDefault();
 
   currentAccount = accounts.find(
@@ -150,17 +139,6 @@ btnLogin.addEventListener('click', function (e) {
   console.log(currentAccount);
 
   if (currentAccount?.pin === Number(inputLoginPin.value)) {
-    // Display UI and message
-    labelWelcome.textContent = `Welcome back, ${
-      currentAccount.owner.split(' ')[0]
-    }`;
-    containerApp.style.opacity = 100;
-
-    // Clear input fields
-    inputLoginUsername.value = inputLoginPin.value = '';
-    inputLoginPin.blur();
-
-    // Update UI
-    updateUI(currentAccount);
+    document.getElementById('section--4').style.visibility = 'visible';
   }
-});*/
+});
