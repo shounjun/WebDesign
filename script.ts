@@ -14,9 +14,15 @@ const account1: {
 const accounts = [account1];
 
 let orders = [];
-let totalPrice = 0;
+let totalPrice: number = 0;
 
-let plates = [
+let plates: {
+  Name: string;
+  Day: string;
+  Type: string;
+  Price: Number;
+  img: string;
+}[] = [
   {
     Name: 'Salmon',
     Day: 'Monday',
@@ -91,19 +97,20 @@ let plates = [
 
 let user = {};
 
-const initFromLocalStorage = function () {
-  const userString = localStorage.getItem('user');
-  if (userString != null) {
-    user = JSON.parse(localStorage.getItem('user'));
-    document?.getElementById('section--4').style.visibility = 'visible';
-  }
-
+const loadOrders = function() {
   const ordersString = localStorage.getItem('orders');
   if (ordersString != null) {
     orders = JSON.parse(localStorage.getItem('orders'));
     orders.forEach(order => {
       addOrder(order, false);
     });
+  }
+}
+const initFromLocalStorage = function () {
+  const userString = localStorage.getItem('user');
+  if (userString != null) {
+    user = JSON.parse(localStorage.getItem('user'));
+    document?.getElementById('section--4').style.visibility = 'visible';
   }
 };
 
@@ -112,6 +119,8 @@ const addOrder = function (plate: object, saveInLocalStorage: boolean) {
   const row = document.createElement('tr');
   const plateTD = document.createElement('td');
   const priceTD = document.createElement('td');
+
+  row.setAttribute('id', plate.Name + plate.Price);
 
   plateTD.innerHTML = plate.Name;
   priceTD.innerHTML = plate.Price + '€';
@@ -128,7 +137,22 @@ const addOrder = function (plate: object, saveInLocalStorage: boolean) {
   }
   const totalPriceText = document.getElementById('totalPrice');
   totalPrice += plate.Price;
-  totalPriceText?.innerHTML = totalPrice.toString() + '€';
+  totalPriceText?.innerHTML = totalPrice.toString() + ' €';
+};
+
+let removeOrder = function (plate: object) {
+  var row = document.getElementById(plate.Name + plate.Price);
+  orders.forEach((order, i) => {
+    if (order.Name == plate.Name && order.Price == plate.Price) {
+      orders.splice(i, 1);
+      row?.remove();
+      const totalPriceText = document.getElementById('totalPrice');
+      totalPrice -= plate.Price;
+      totalPriceText?.innerHTML = totalPrice.toString() + ' €';
+      window.localStorage.setItem('orders', JSON.stringify(orders)
+    }
+  });
+  
 };
 
 const buildMenu = function (tableID: string, addBuyButton: boolean) {
@@ -139,21 +163,41 @@ const buildMenu = function (tableID: string, addBuyButton: boolean) {
     const name = document.createElement('p');
     const image = document.createElement('img');
     const price = document.createElement('p');
-    const btn = document.createElement('button');
+    const btnBuy = document.createElement('button');
+    const btnRemove = document.createElement('button');
+   
 
     name.innerText = plate.Name;
     image.src = plate.img;
     price.innerText = `Price: ${plate.Price}€`;
-    btn.innerHTML = 'Buy';
-    btn.addEventListener('click', function (e) {
+    btnBuy.innerHTML = 'Buy';
+    btnRemove.innerHTML = 'Remove';
+    btnBuy.addEventListener('click', function (e) {
       addOrder(plate, true);
-      btn.style.visibility = 'hidden';
+      btnBuy.style.visibility = 'hidden';
+      btnRemove.style.visibility = 'visible';
+    });
+
+    btnRemove.addEventListener('click', function (e) {
+      removeOrder(plate);
+      btnBuy.style.visibility = 'visible';
+      btnRemove.style.visibility = 'hidden';
     });
 
     div.append(name);
     div.append(price);
     div.append(image);
-    if (addBuyButton) div.append(btn);
+    var orderExists = false;
+    orders.forEach((order) => {
+      if (order.Name == plate.Name && order.Price == plate.Price)
+      orderExists = true;
+    });
+
+    btnRemove.style.visibility = orderExists? 'visible' : 'hidden';
+    btnBuy.style.visibility = orderExists? 'hidden' : 'visible';
+
+    if (addBuyButton) div.append(btnBuy);
+    if (addBuyButton) div.append(btnRemove);
 
     if (td !== null) {
       td?.append(div);
@@ -161,6 +205,7 @@ const buildMenu = function (tableID: string, addBuyButton: boolean) {
   });
 };
 
+loadOrders();
 buildMenu('section--2', false);
 buildMenu('section--4', true);
 initFromLocalStorage();
@@ -194,7 +239,7 @@ btnSubmit?.addEventListener('click', function (e) {
       ? void 0
       : currentUser.pin) === Number(inputLoginPin?.value)
   ) {
-    document?.getElementById('section--4').style.visibility = 'visible';
+    document.getElementById('section--4').style.visibility = 'visible';
     window.localStorage.setItem('user', JSON.stringify(currentUser));
   } else {
     const newUser = {
